@@ -45,14 +45,14 @@ def merge_patch(imBase, imPatch, centroid, threshold=100):
   imMerge[rr[keep], cc[keep]] = np.maximum(imBaseCrop, imPatchKeep)
 
   return 255-imMerge # invert back
+if __name__=='__main__':    
+  file = '/Users/dl367ny/htrdata/crowdsource/extracted/111003/$9,900,000.jpg'
+  patchFile = '/Users/dl367ny/htrdata/cropped_patches/nw_horizontal-2/Declined - Handwritten (1)_Redacted-2-aligned-Unnamed2.jpg'
+  imBase = cv2.imread(file, cv2.IMREAD_GRAYSCALE)
+  im = cv2.imread(patchFile, cv2.IMREAD_GRAYSCALE)
+  im = cv2.resize(im, None, fx=3, fy=1)+50
 
-file = '/Users/dl367ny/htrdata/crowdsource/extracted/111003/$9,900,000.jpg'
-patchFile = '/Users/dl367ny/htrdata/cropped_patches/nw_horizontal-2/Declined - Handwritten (1)_Redacted-2-aligned-Unnamed2.jpg'
-imBase = cv2.imread(file, cv2.IMREAD_GRAYSCALE)
-im = cv2.imread(patchFile, cv2.IMREAD_GRAYSCALE)
-im = cv2.resize(im, None, fx=3, fy=1)+50
-
-nrb, ncb = imBase.shape
-centroid = int(.4*nrb), int(ncb/2)
-imMerge = merge_patch(imBase, im, centroid, 100)
-Image.fromarray(imMerge).show()
+  nrb, ncb = imBase.shape
+  centroid = int(.4*nrb), int(ncb/2)
+  imMerge = merge_patch(imBase, im, centroid, 100)
+  Image.fromarray(imMerge).show()
